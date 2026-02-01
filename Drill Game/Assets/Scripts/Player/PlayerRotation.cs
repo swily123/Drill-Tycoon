@@ -1,10 +1,11 @@
-﻿using UnityEngine;
+﻿using InventorySystem;
+using UnityEngine;
 
 namespace Player
 {
     public class PlayerRotation : MonoBehaviour
     {
-        [SerializeField] private float _rotationSpeed = 1f;
+        [SerializeField] private float _rotationSpeed = 10f;
         
         private Transform _transform;
 
