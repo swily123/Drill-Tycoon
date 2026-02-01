@@ -17,7 +17,7 @@ namespace Player
         {
             lookRotation.y = 0;
             lookRotation *= -1;
-
+            
             if (Vector3.Angle(_transform.forward, lookRotation) > 120)
             {
                 _transform.forward = lookRotation;
@@ -26,7 +26,6 @@ namespace Player
             {
                _transform.forward = Vector3.MoveTowards(_transform.forward, lookRotation,  Time.deltaTime * _rotationSpeed);
             }
-            
         }
     }
 }
