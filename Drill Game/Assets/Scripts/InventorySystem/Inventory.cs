@@ -1,25 +1,38 @@
-﻿namespace InventorySystem
+﻿using System;
+using System.Collections.Generic;
+using Blocks;
+
+namespace InventorySystem
 {
     public class Inventory
     {
-        public int CountBlocks { get; private set; }
-
-        private readonly int _maxBlocksCount;
+        private readonly int _maxItemsCount;
+        private readonly Stack<Item> _items;
     
-        public Inventory(int maxBlocksCount)
+        public Inventory(int maxItemsCount)
         {
-            _maxBlocksCount = maxBlocksCount;
-            CountBlocks = 0;
+            _maxItemsCount = maxItemsCount;
+            _items = new Stack<Item>();
         }
 
-        public bool IsFree => CountBlocks < _maxBlocksCount;
+        public int CountItems => _items.Count;
+        public bool CanAddItem => _items.Count <= _maxItemsCount;
     
-        public void AddBlock()
+        public void AddItem(Item item)
         {
-            if (IsFree)
+            if (CountItems <= _maxItemsCount)
             {
-                CountBlocks++;
+                _items.Push(item);
             }
+        }
+
+        public Item GetItem()
+        {
+            if (_items.Count == 0)
+                throw new InvalidOperationException(nameof(_items) + " is empty");
+            
+            Item item = _items.Pop();
+            return item;
         }
     }
 }
