@@ -1,14 +1,31 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Player
 {
     public class PlayerEconomic : MonoBehaviour
     {
-        [SerializeField] private Shop _shop;
-        [SerializeField] private PlayerEconomicView _view;
+        public static PlayerEconomic Instance { get; private set; }
         
-        private int _money;
-        //private int _crystals;
+        public event Action OnMoneyChanged;
+        public float Money => _money;
+        
+        [SerializeField] private Shop _shop;
+        
+        private float _money;
+        
+        private void Awake()
+        {
+            if (Instance == null)
+            {
+                Instance = this;
+                // DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
 
         private void OnEnable()
         {
@@ -19,8 +36,28 @@ namespace Player
         {
             _shop.ItemPurchased -= IncreaseMoney;
         }
+
+        public bool IsEnoughMoney(float cost)
+        {
+            if (cost < 0)
+                throw new ArgumentException(nameof(cost) + " cannot be negative");
+            
+            return _money >= cost;
+        }
+
+        public void SpendMoney(float cost)
+        {
+            if (!IsEnoughMoney(cost))
+            {
+                Debug.LogWarning($"[Economy] Not enough money! Have {_money}, need {cost}");
+                return;
+            }
+            
+            _money -= cost;
+            OnMoneyChanged?.Invoke();
+        }
         
-        private void IncreaseMoney(int itemCost)
+        private void IncreaseMoney(float itemCost)
         {
             if (itemCost <= 0)
             {
@@ -28,7 +65,13 @@ namespace Player
             }
             
             _money += itemCost;
-            _view.UpdateView(_money);
+            OnMoneyChanged?.Invoke();
+        }
+
+        [ContextMenu("Bollinerier")]
+        private void Bollinerier()
+        {
+            IncreaseMoney(9999999);
         }
     }
 }

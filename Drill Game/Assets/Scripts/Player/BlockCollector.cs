@@ -6,18 +6,10 @@ namespace Player
 {
     public class BlockCollector : MonoBehaviour
     {
-        [SerializeField] private int _maxBlocksCount;
         [SerializeField] private InventoryView _inventoryView;
         [SerializeField] private Transform _slot;
         [SerializeField] private ButtonPresser _buttonPresser;
-    
-        private Inventory _inventory;
-        
-        private void Awake()
-        {
-            _inventory = new Inventory(_maxBlocksCount);
-            _buttonPresser.SetInventory(_inventory);
-        }
+        [SerializeField] private Inventory _inventory;
 
         private void OnCollisionEnter(Collision other)
         {

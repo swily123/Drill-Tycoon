@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System.Globalization;
+using TMPro;
 using UnityEngine;
 
 namespace Player
@@ -6,10 +7,22 @@ namespace Player
     public class PlayerEconomicView : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI _moneyText;
-        
-        public void UpdateView(int money)
+
+        private void OnEnable()
         {
-            _moneyText.text = money.ToString();
+            if (PlayerEconomic.Instance != null)
+                PlayerEconomic.Instance.OnMoneyChanged += UpdateView;
+        }
+
+        private void OnDisable()
+        {
+            if (PlayerEconomic.Instance != null)
+                PlayerEconomic.Instance.OnMoneyChanged -= UpdateView;
+        }
+
+        private void UpdateView()
+        {
+            _moneyText.text = PlayerEconomic.Instance.Money.ToString(CultureInfo.CurrentCulture);
         }
     }
 }

@@ -10,7 +10,7 @@ public class Shop : MonoBehaviour
     [SerializeField] private Transform _itemSellPoint;
     [SerializeField] private float _cooldown = 0.1f;
     
-    public event Action<int> ItemPurchased;
+    public event Action<float> ItemPurchased;
     
     private float _cooldownTimer;
     

@@ -7,12 +7,7 @@ namespace Player
 {
     public class ButtonPresser : MonoBehaviour
     {
-        private Inventory _inventory;
-
-        public void SetInventory(Inventory inventory)
-        {
-            _inventory = inventory;
-        }
+        [SerializeField] private Inventory _inventory;
 
         public Item GetNextItem()
         {

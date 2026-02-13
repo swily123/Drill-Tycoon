@@ -1,26 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using Blocks;
+using UnityEngine;
+using Upgrades;
 
 namespace InventorySystem
 {
-    public class Inventory
+    public class Inventory : LevelableEntity
     {
-        private readonly int _maxItemsCount;
-        private readonly Stack<Item> _items;
-    
-        public Inventory(int maxItemsCount)
-        {
-            _maxItemsCount = maxItemsCount;
-            _items = new Stack<Item>();
-        }
+        [SerializeField] private int _maxBlocksCount;
+        
+        private readonly Stack<Item> _items = new Stack<Item>();
 
         public int CountItems => _items.Count;
-        public bool CanAddItem => _items.Count <= _maxItemsCount;
-    
+        public bool CanAddItem => _items.Count <= _maxBlocksCount;
+        
         public void AddItem(Item item)
         {
-            if (CountItems <= _maxItemsCount)
+            if (CountItems <= _maxBlocksCount)
             {
                 _items.Push(item);
             }
@@ -33,6 +30,15 @@ namespace InventorySystem
             
             Item item = _items.Pop();
             return item;
+        }
+
+        public override void Upgrade(int capacity)
+        {
+            if (capacity < 0)
+                throw new ArgumentOutOfRangeException(nameof(capacity), capacity, $"{nameof(capacity)} cannot be negative");
+            
+            _maxBlocksCount = capacity;
+            base.Upgrade(capacity);
         }
     }
 }
