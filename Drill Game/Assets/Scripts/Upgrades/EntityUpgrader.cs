@@ -8,11 +8,11 @@ namespace Upgrades
         [SerializeField] private LevelableEntity _entity;
         [SerializeField] private UpgradeConfig _config;
 
-        private int NextLevel => _entity.Level + 1;
+        public int NextLevel => _entity.Level + 1;
         
         public event Action MaxLevelReached;
         
-        public float GetUpgradeCost()
+        public int GetUpgradeCost()
         {
             try
             {
@@ -25,6 +25,31 @@ namespace Upgrades
             }
         }
 
+        public int GetUpgradeValue(int level)
+        {
+            if (level == 1)
+            {
+                return _entity.StartValue;
+            }
+            else
+            {
+                try
+                {
+                    return _config.GetValue(level);
+                }
+                catch (Exception e)
+                {
+                    Debug.Log(e);
+                    throw;
+                }
+            }
+        }
+
+        public int GetLevel()
+        {
+            return _entity.Level;
+        }
+        
         public void ApplyUpgrade()
         {
             try

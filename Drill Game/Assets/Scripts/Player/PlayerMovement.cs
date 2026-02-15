@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using Upgrades;
 
 namespace Player
@@ -8,7 +9,12 @@ namespace Player
         [SerializeField] private int _speed;
 
         private Rigidbody _rigidbody;
-        
+
+        private void Awake()
+        {
+            StartValue = _speed;
+        }
+
         public void Initialize(Rigidbody parentRigidbody)
         {
             _rigidbody = parentRigidbody;

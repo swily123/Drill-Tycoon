@@ -33,7 +33,23 @@ namespace Upgrades
 
         private void Upgrade()
         {
-            _upgradeEngine.TryBuyUpgrade();
+            if (_upgradeEngine.TryBuyUpgrade())
+            {
+                if (_upgradeEngine.MaxLevelReached)
+                {
+                    _upgradeUI.Colorize(true);
+                    int level = _upgradeEngine.GetEntityLevel();
+                    int value = _upgradeEngine.GetUpgradeValue(level);
+                    
+                    _upgradeUI.SetLevelText(level);
+                    _upgradeUI.SetDescriptionText(value);
+                    _upgradeUI.SetMaxLevel();
+                }
+                else
+                {
+                    SetRepresentation();
+                }
+            }
         }
 
         private void SetRepresentation()
@@ -41,6 +57,14 @@ namespace Upgrades
             bool canBuy = _upgradeEngine.CanBuyUpgrade();
             _upgradeButton.interactable = canBuy;
             _upgradeUI.Colorize(canBuy);
+            
+            int level = _upgradeEngine.GetEntityLevel();
+            _upgradeEngine.GetUpgradeValues(level, out int firstValue, out int secondValue);
+            int upgradeCost = _upgradeEngine.GetCostUpgrade();
+            
+            _upgradeUI.SetLevelText(level);
+            _upgradeUI.SetDescriptionText(firstValue, secondValue);
+            _upgradeUI.SetButtonText(upgradeCost);
         }
 
         private void Disable()
