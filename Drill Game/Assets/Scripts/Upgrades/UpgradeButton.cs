@@ -8,7 +8,8 @@ namespace Upgrades
     {
         [SerializeField] private UpgradeEngine _upgradeEngine;
         [SerializeField] private Button _upgradeButton;
-
+        [SerializeField] private UpgradeUI _upgradeUI;
+        
         private void OnEnable()
         {
             _upgradeEngine.DisablingButton += Disable;
@@ -16,8 +17,8 @@ namespace Upgrades
 
             if (PlayerEconomic.Instance != null)
             {
-                SetInteractable();
-                PlayerEconomic.Instance.OnMoneyChanged += SetInteractable;
+                SetRepresentation();
+                PlayerEconomic.Instance.OnMoneyChanged += SetRepresentation;
             }
         }
 
@@ -27,7 +28,7 @@ namespace Upgrades
             _upgradeButton.onClick.RemoveListener(Upgrade);
             
             if (PlayerEconomic.Instance != null)
-                PlayerEconomic.Instance.OnMoneyChanged -= SetInteractable;
+                PlayerEconomic.Instance.OnMoneyChanged -= SetRepresentation;
         }
 
         private void Upgrade()
@@ -35,15 +36,18 @@ namespace Upgrades
             _upgradeEngine.TryBuyUpgrade();
         }
 
-        private void SetInteractable()
+        private void SetRepresentation()
         {
-            _upgradeButton.interactable = _upgradeEngine.CanBuyUpgrade();
+            bool canBuy = _upgradeEngine.CanBuyUpgrade();
+            _upgradeButton.interactable = canBuy;
+            _upgradeUI.Colorize(canBuy);
         }
 
         private void Disable()
         {
-            OnDisable();
             Destroy(_upgradeButton.gameObject);
+            OnDisable();
+            Destroy(this);
         }
     }
 }

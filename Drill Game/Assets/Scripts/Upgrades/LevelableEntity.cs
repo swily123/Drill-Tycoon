@@ -8,7 +8,6 @@ namespace Upgrades
 
         public virtual void Upgrade(int value) 
         {
-            Debug.Log("Base Upgrading");
             Level++;
         }
     }

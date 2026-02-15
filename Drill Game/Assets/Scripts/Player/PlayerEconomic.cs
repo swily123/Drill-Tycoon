@@ -47,7 +47,7 @@ namespace Player
 
         public void SpendMoney(float cost)
         {
-            if (!IsEnoughMoney(cost))
+            if (IsEnoughMoney(cost) == false)
             {
                 Debug.LogWarning($"[Economy] Not enough money! Have {_money}, need {cost}");
                 return;
@@ -68,10 +68,16 @@ namespace Player
             OnMoneyChanged?.Invoke();
         }
 
-        [ContextMenu("Bollinerier")]
-        private void Bollinerier()
+        [ContextMenu("Billionaire")]
+        private void BecomeBillionaire()
         {
             IncreaseMoney(9999999);
+        }
+        
+        [ContextMenu("Bankrupt")]
+        private void BecomeBankrupt()
+        {
+            SpendMoney(_money);
         }
     }
 }

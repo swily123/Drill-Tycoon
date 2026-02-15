@@ -30,9 +30,6 @@ namespace Player
             
             _speed = speed;
             base.Upgrade(speed);
-            
-            Debug.Log("Upgraded to " + Level);
-            Debug.Log("Speed " + _speed);
         }
     }
 }
