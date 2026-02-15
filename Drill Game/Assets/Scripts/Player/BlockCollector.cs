@@ -20,14 +20,13 @@ namespace Player
 
             if (other.transform.TryGetComponent(out Item item))
             {
-                if (item.IsCollected)
+                if (item.IsCollected || _inventory.CanAddItem == false)
                 {
                     return;
                 }
                 
                 Vector3 itemPosition = _inventoryView.GetNextLocalPosition(_inventory.CountItems);
                 item.Collect(_slot, itemPosition);
-
                 _inventory.AddItem(item);
             }
         }

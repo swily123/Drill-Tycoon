@@ -13,11 +13,11 @@ namespace InventorySystem
         private readonly Stack<Item> _items = new Stack<Item>();
 
         public int CountItems => _items.Count;
-        public bool CanAddItem => _items.Count <= _maxBlocksCount;
+        public bool CanAddItem => _items.Count < _maxBlocksCount;
         
         public void AddItem(Item item)
         {
-            if (CountItems <= _maxBlocksCount)
+            if (CanAddItem)
             {
                 _items.Push(item);
             }
