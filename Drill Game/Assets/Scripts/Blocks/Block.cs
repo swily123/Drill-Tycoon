@@ -5,7 +5,6 @@ namespace Blocks
     public class Block : MonoBehaviour
     {
         [SerializeField] private float _health;
-        [SerializeField] private Item _item;
     
         public void TakeDamage(float damage)
         {
@@ -22,8 +21,9 @@ namespace Blocks
 
         private void Die()
         {
+            Item item = ItemPool.Instance.GetObject();
+            item.Configure(transform);
             Destroy(gameObject);
-            Instantiate(_item, transform.position, Quaternion.identity);
         }
     }
 }

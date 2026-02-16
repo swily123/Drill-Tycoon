@@ -48,5 +48,14 @@ namespace Blocks
                     //TODO звук/эффекты
                 });
         }
+
+        public void Configure(Transform parent)
+        {
+            if (_transform == null)
+                return;
+            
+            _transform.position = parent.transform.position;
+            _transform.rotation = Quaternion.identity;
+        }
     }
 }

@@ -8,20 +8,26 @@ public class Shop : MonoBehaviour
 {
     [SerializeField] private PlaneButton _button;
     [SerializeField] private Transform _itemSellPoint;
-    [SerializeField] private float _cooldown = 0.1f;
+    [SerializeField] private float _cooldownMax = 0.2f;
+    [SerializeField] private float _cooldownMin = 0.01f;
+    [SerializeField] private float _cooldownStep = 0.0001f;
     
     public event Action<float> ItemPurchased;
     
     private float _cooldownTimer;
+    private float _cooldownNextValue;
     
     private void OnEnable()
     {
+        OnReleaseButton();
         _button.Activating += OnActive;
+        _button.Released += OnReleaseButton;
     }
 
     private void OnDisable()
     {
         _button.Activating -= OnActive;
+        _button.Released -= OnReleaseButton;
     }
  
     private void OnActive(ButtonPresser buttonPresser)
@@ -34,10 +40,17 @@ public class Shop : MonoBehaviour
         
         if (buttonPresser.IsInventoryNotEmpty())
         {
-            _cooldownTimer = _cooldown;
             Item item = buttonPresser.GetNextItem();
             item.Collect(_itemSellPoint, Vector3.zero);
             ItemPurchased?.Invoke(item.Cost);
+            _cooldownNextValue = Mathf.MoveTowards(_cooldownNextValue, _cooldownMin, _cooldownStep);
+            _cooldownTimer = _cooldownNextValue;
         }
+    }
+
+    private void OnReleaseButton()
+    {
+        _cooldownTimer = _cooldownMax;
+        _cooldownNextValue = _cooldownMax;
     }
 }
