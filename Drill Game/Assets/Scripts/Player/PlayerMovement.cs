@@ -9,6 +9,8 @@ namespace Player
         [SerializeField] private float _speed;
         
         public event Action<float> Upgraded;
+        public event Action Moving;
+        public float CurrentSpeed => _speed;
         
         private Rigidbody _rigidbody;
 
@@ -27,6 +29,7 @@ namespace Player
             if (_rigidbody is null)
                 return;
             
+            Moving?.Invoke();
             Vector3 movement = direction * _speed;
             _rigidbody.velocity = new Vector3(movement.x, _rigidbody.velocity.y, movement.z);
         }

@@ -9,8 +9,8 @@ namespace InventorySystem
         [SerializeField] private float _zOffset;
         [SerializeField] private float _yOffset;
 
-        private const int RowCount = 3;
-        private const int FloorCount = 9;
+        private const int RowCount = 4;
+        private const int FloorCount = 16;
 
         public Vector3 GetNextLocalPosition(int index)
         {
