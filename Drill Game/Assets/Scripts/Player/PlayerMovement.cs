@@ -6,8 +6,10 @@ namespace Player
 {
     public class PlayerMovement : LevelableEntity
     {
-        [SerializeField] private int _speed;
-
+        [SerializeField] private float _speed;
+        
+        public event Action<float> Upgraded;
+        
         private Rigidbody _rigidbody;
 
         private void Awake()
@@ -29,13 +31,14 @@ namespace Player
             _rigidbody.velocity = new Vector3(movement.x, _rigidbody.velocity.y, movement.z);
         }
 
-        public override void Upgrade(int speed)
+        public override void Upgrade(float speed)
         {
             if (speed <= 0)
-                throw new System.ArgumentException("Speed cannot be less or equal to zero.");
+                throw new ArgumentException("Speed cannot be less or equal to zero.");
             
             _speed = speed;
             base.Upgrade(speed);
+            Upgraded?.Invoke(speed);
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using Blocks;
 using UnityEngine;
 
-namespace Player
+namespace DrillSystem
 {
     public class DrillCollisionHandler : MonoBehaviour
     {

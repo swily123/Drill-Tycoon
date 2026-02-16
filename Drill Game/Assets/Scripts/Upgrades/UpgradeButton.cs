@@ -39,10 +39,9 @@ namespace Upgrades
                 {
                     _upgradeUI.Colorize(true);
                     int level = _upgradeEngine.GetEntityLevel();
-                    int value = _upgradeEngine.GetUpgradeValue(level);
                     
                     _upgradeUI.SetLevelText(level);
-                    _upgradeUI.SetDescriptionText(value);
+                    _upgradeUI.SetDescriptionText(_upgradeEngine.GetUpgradeValue(level));
                     _upgradeUI.SetMaxLevel();
                 }
                 else
@@ -59,12 +58,11 @@ namespace Upgrades
             _upgradeUI.Colorize(canBuy);
             
             int level = _upgradeEngine.GetEntityLevel();
-            _upgradeEngine.GetUpgradeValues(level, out int firstValue, out int secondValue);
-            int upgradeCost = _upgradeEngine.GetCostUpgrade();
+            _upgradeEngine.GetUpgradeValues(level, out float firstValue, out float secondValue);
             
             _upgradeUI.SetLevelText(level);
             _upgradeUI.SetDescriptionText(firstValue, secondValue);
-            _upgradeUI.SetButtonText(upgradeCost);
+            _upgradeUI.SetButtonText(_upgradeEngine.GetCostUpgrade());
         }
 
         private void Disable()

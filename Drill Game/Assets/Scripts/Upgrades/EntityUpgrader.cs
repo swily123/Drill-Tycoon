@@ -25,7 +25,7 @@ namespace Upgrades
             }
         }
 
-        public int GetUpgradeValue(int level)
+        public float GetUpgradeValue(int level)
         {
             if (level == 1)
             {
@@ -54,7 +54,7 @@ namespace Upgrades
         {
             try
             {
-                var value = _config.GetValue(NextLevel);
+                float value = _config.GetValue(NextLevel);
                 _entity.Upgrade(value);
             }
             catch (Exception e)

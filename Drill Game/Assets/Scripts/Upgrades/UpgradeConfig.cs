@@ -1,45 +1,47 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Upgrades
 {
-    [CreateAssetMenu(fileName = "MovementUpgradeConfig", menuName = "Configs/Movement Upgrade")]
+    [CreateAssetMenu(fileName = "UpgradesConfig", menuName = "Configs/Config Upgrades")]
     public class UpgradeConfig : ScriptableObject
     {
-        [SerializeField] private LevelData[] Levels;
+        [FormerlySerializedAs("Levels")] [SerializeField] private LevelData[] _levels;
         
-        [System.Serializable]
+        [Serializable]
         public class LevelData
         {
             public int Level;
             public int Cost;
-            public int Value;
+            public float Value;
         }
         
         public int GetCost(int level)
         {
-            foreach (LevelData data in Levels)
+            foreach (LevelData data in _levels)
             {
                 if (data.Level == level)
                     return data.Cost;
             }
         
-            throw new System.ArgumentOutOfRangeException($"Level {level} not configured!");
+            throw new ArgumentOutOfRangeException($"Level {level} not configured!");
         }
         
-        public int GetValue(int level)
+        public float GetValue(int level)
         {
-            foreach (LevelData data in Levels)
+            foreach (LevelData data in _levels)
             {
                 if (data.Level == level)
                     return data.Value;
             }
         
-            throw new System.Exception($"Level {level} not configured!");
+            throw new Exception($"Level {level} not configured!");
         }
         
         public bool HasLevel(int level)
         {
-            foreach (LevelData data in Levels)
+            foreach (LevelData data in _levels)
             {
                 if (data.Level == level)
                     return true;

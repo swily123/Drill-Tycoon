@@ -50,13 +50,13 @@ namespace Upgrades
             return _entityUpgrader.GetLevel();
         }
 
-        public void GetUpgradeValues(int level, out int firstValue, out int secondValue)
+        public void GetUpgradeValues(int level, out float firstValue, out float secondValue)
         {
             firstValue = _entityUpgrader.GetUpgradeValue(level);
             secondValue = _entityUpgrader.GetUpgradeValue(_entityUpgrader.NextLevel);
         }
 
-        public int GetUpgradeValue(int level)
+        public float GetUpgradeValue(int level)
         {
             return _entityUpgrader.GetUpgradeValue(level);
         }

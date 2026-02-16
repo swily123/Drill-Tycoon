@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Globalization;
 using TMPro;
 using UnityEngine;
 
@@ -39,14 +39,14 @@ namespace Upgrades
             _level.text = _levelText + level;
         }
         
-        public void SetDescriptionText(int firstValue, int secondValue)
+        public void SetDescriptionText(float firstValue, float secondValue)
         {
-            _description.text = firstValue +  _descriptionText + secondValue;
+            _description.text = firstValue.ToString("0.##", CultureInfo.InvariantCulture) +  _descriptionText + secondValue.ToString("0.##", CultureInfo.InvariantCulture);
         }
         
-        public void SetDescriptionText(int value)
+        public void SetDescriptionText(float value)
         {
-            _description.text = value.ToString();
+            _description.text = value.ToString("0.##", CultureInfo.InvariantCulture);
         }
         
         public void SetButtonText(int upgradeCost)

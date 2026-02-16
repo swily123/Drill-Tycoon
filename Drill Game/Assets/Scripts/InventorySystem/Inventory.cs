@@ -14,7 +14,12 @@ namespace InventorySystem
 
         public int CountItems => _items.Count;
         public bool CanAddItem => _items.Count < _maxBlocksCount;
-        
+
+        private void Awake()
+        {
+            StartValue = _maxBlocksCount;
+        }
+
         public void AddItem(Item item)
         {
             if (CanAddItem)
@@ -32,12 +37,12 @@ namespace InventorySystem
             return item;
         }
 
-        public override void Upgrade(int capacity)
+        public override void Upgrade(float capacity)
         {
             if (capacity < 0)
                 throw new ArgumentOutOfRangeException(nameof(capacity), capacity, $"{nameof(capacity)} cannot be negative");
             
-            _maxBlocksCount = capacity;
+            _maxBlocksCount = Convert.ToInt32(capacity);
             base.Upgrade(capacity);
         }
     }
