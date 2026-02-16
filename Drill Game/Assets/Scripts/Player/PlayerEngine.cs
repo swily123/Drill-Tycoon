@@ -31,8 +31,12 @@ namespace Player
     
         private void OnMovementInput(Vector3 direction)
         {
-            _playerRotation.Rotate(direction);
             _playerMovement.Move(direction);
+
+            if (direction != Vector3.zero)
+            {
+                _playerRotation.Rotate(direction);
+            }
         }
     }
 }

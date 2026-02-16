@@ -229,7 +229,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TrackerSettings:
     BindingMode: 4
-    PositionDamping: {x: 1, y: 1, z: 1}
+    PositionDamping: {x: 0, y: 0, z: 0}
     AngularDampingMode: 0
     RotationDamping: {x: 1, y: 1, z: 1}
     QuaternionDamping: 1
@@ -286,7 +286,7 @@ Transform:
   m_GameObject: {fileID: 6723455}
   serializedVersion: 2
   m_LocalRotation: {x: 0.000000007632187, y: 0.95709205, z: -0.28978413, w: 0.000000025207404}
-  m_LocalPosition: {x: 0, y: 32.86, z: 126.8}
+  m_LocalPosition: {x: 0, y: 32.86, z: 136.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3690,7 +3690,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -5476,7 +5476,7 @@ Transform:
   m_GameObject: {fileID: 867320440}
   serializedVersion: 2
   m_LocalRotation: {x: 0.000000007632188, y: 0.95709205, z: -0.28978416, w: 0.000000025207404}
-  m_LocalPosition: {x: 0, y: 32.86, z: 126.8}
+  m_LocalPosition: {x: 0, y: 32.86, z: 136.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8707,7 +8707,7 @@ Transform:
   m_GameObject: {fileID: 1216559836}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 12.86, z: 96.8}
+  m_LocalPosition: {x: 0, y: 12.86, z: 106.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8734,7 +8734,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30aeb8a0345c4fad9aac162dcb316ab5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 15
+  _speed: 30
+  _speedMultiplierFactor: 7
+  _acceleration: 5
+  _deceleration: 6
 --- !u!114 &1216559843
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8764,7 +8767,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerMovement: {fileID: 1216559842}
-  _rotationSpeed: 15
+  _rotationMinSpeed: 15
+  _rotationMaxSpeed: 30
+  _rotationRatio: 5
+  _inputSmoothing: 5
 --- !u!54 &1216559845
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -8774,7 +8780,7 @@ Rigidbody:
   m_GameObject: {fileID: 1216559836}
   serializedVersion: 4
   m_Mass: 20
-  m_Drag: 0
+  m_Drag: 2
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -8789,7 +8795,7 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 1
 --- !u!114 &1216559846
@@ -15228,12 +15234,12 @@ SceneRoots:
   m_Roots:
   - {fileID: 867320443}
   - {fileID: 1183035751}
+  - {fileID: 6723459}
   - {fileID: 1411147453}
   - {fileID: 1236980481}
   - {fileID: 105295720}
   - {fileID: 1138126972}
   - {fileID: 250052516}
-  - {fileID: 6723459}
   - {fileID: 891647721}
   - {fileID: 1216559840}
   - {fileID: 1249484977}
