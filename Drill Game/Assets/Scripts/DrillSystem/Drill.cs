@@ -18,13 +18,9 @@ namespace DrillSystem
         {
             block.TakeDamage(_speed);
 
-            if (block != null) //TODO AddForce, откинуть назад если не смог сломать
+            if (block.IsDieOnDamage(_speed) == false) //TODO AddForce, откинуть назад если не смог сломать
             {
                 Debug.Log("Block Hit");
-            }
-            else
-            {
-                Debug.Log("Block die");
             }
         }
 

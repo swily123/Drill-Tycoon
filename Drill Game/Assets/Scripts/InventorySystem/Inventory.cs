@@ -10,14 +10,19 @@ namespace InventorySystem
     {
         [SerializeField] private int _maxBlocksCount;
         
-        private readonly Stack<Item> _items = new Stack<Item>();
-
+        public event Action<int> OnCountChanged;
+        public event Action<int> OnMaxCountChanged;
+        
         public int CountItems => _items.Count;
         public bool CanAddItem => _items.Count < _maxBlocksCount;
+
+        private readonly Stack<Item> _items = new Stack<Item>();
 
         private void Awake()
         {
             StartValue = _maxBlocksCount;
+            OnMaxCountChanged?.Invoke(_maxBlocksCount);
+            OnCountChanged?.Invoke(_items.Count);
         }
 
         public void AddItem(Item item)
@@ -25,6 +30,7 @@ namespace InventorySystem
             if (CanAddItem)
             {
                 _items.Push(item);
+                OnCountChanged?.Invoke(_items.Count);
             }
         }
 
@@ -34,6 +40,7 @@ namespace InventorySystem
                 throw new InvalidOperationException(nameof(_items) + " is empty");
             
             Item item = _items.Pop();
+            OnCountChanged?.Invoke(_items.Count);
             return item;
         }
 
@@ -43,6 +50,8 @@ namespace InventorySystem
                 throw new ArgumentOutOfRangeException(nameof(capacity), capacity, $"{nameof(capacity)} cannot be negative");
             
             _maxBlocksCount = Convert.ToInt32(capacity);
+            OnMaxCountChanged?.Invoke(_maxBlocksCount);
+            OnCountChanged?.Invoke(_items.Count);
             base.Upgrade(capacity);
         }
     }

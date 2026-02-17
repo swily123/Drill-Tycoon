@@ -28,6 +28,11 @@ namespace Blocks
             }
         }
 
+        public bool IsDieOnDamage(float damage)
+        {
+            return damage >= _health;
+        }
+        
         private void Die()
         {
             ItemPool.Instance.GetObject();
