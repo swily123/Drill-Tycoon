@@ -41,7 +41,7 @@ public class Shop : MonoBehaviour
         if (buttonPresser.IsInventoryNotEmpty())
         {
             Item item = buttonPresser.GetNextItem();
-            item.Collect(_itemSellPoint, Vector3.zero);
+            item.Collect(_itemSellPoint, Vector3.zero, onComplete: () => ItemPool.Instance.ReleaseObject(item));
             ItemPurchased?.Invoke(item.Cost);
             _cooldownNextValue = Mathf.MoveTowards(_cooldownNextValue, _cooldownMin, _cooldownStep);
             _cooldownTimer = _cooldownNextValue;

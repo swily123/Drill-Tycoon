@@ -20,7 +20,7 @@ namespace Player
 
             if (other.transform.TryGetComponent(out Item item))
             {
-                if (item.IsCollected || _inventory.CanAddItem == false)
+                if (item.IsCollected || _inventory.CanAddItem == false || item.CanBeCollected == false)
                 {
                     return;
                 }

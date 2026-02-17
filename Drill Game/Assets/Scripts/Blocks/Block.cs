@@ -1,11 +1,20 @@
-﻿using UnityEngine;
+﻿using DrillSystem;
+using UnityEngine;
 
 namespace Blocks
 {
     public class Block : MonoBehaviour
     {
         [SerializeField] private float _health;
-    
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.transform.TryGetComponent(out Drill drill))
+            {
+                drill.OnContact(this);
+            }
+        }
+
         public void TakeDamage(float damage)
         {
             if (damage < 0)
@@ -21,8 +30,7 @@ namespace Blocks
 
         private void Die()
         {
-            Item item = ItemPool.Instance.GetObject();
-            item.Configure(transform);
+            ItemPool.Instance.GetObject();
             Destroy(gameObject);
         }
     }
