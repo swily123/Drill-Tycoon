@@ -16,7 +16,7 @@ namespace InventorySystem
         public int CountItems => _items.Count;
         public bool CanAddItem => _items.Count < _maxBlocksCount;
 
-        private readonly Stack<Item> _items = new Stack<Item>();
+        private readonly Stack<Item> _items = new();
 
         private void Awake()
         {
