@@ -37,6 +37,7 @@ namespace Blocks
         {
             ItemPool.Instance.GetObject();
             Destroy(gameObject);
+            BlocksCounter.Instance.OnBlockDie();
         }
     }
 }
