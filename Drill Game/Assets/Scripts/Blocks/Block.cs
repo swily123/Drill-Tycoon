@@ -1,4 +1,5 @@
 ﻿using DrillSystem;
+using ItemSystem;
 using UnityEngine;
 
 namespace Blocks
@@ -7,7 +8,7 @@ namespace Blocks
     public class Block : MonoBehaviour
     {
         [SerializeField] private float _health;
-        [SerializeField] private Material _itemDropMaterial;
+        [SerializeField] private ItemData _itemData;
         
         private const float CooldownDelay = 0.1f;
         private float _hitCooldown;
@@ -77,7 +78,7 @@ namespace Blocks
         private void Die()
         {
             Item item = ItemPool.Instance.GetObject();
-            item.SetMaterial(_itemDropMaterial);
+            item.SetData(_itemData);
             BlocksCounter.Instance.OnBlockDie();
             Destroy(gameObject);
         }

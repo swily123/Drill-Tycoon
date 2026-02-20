@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.Pool;
 
-namespace Blocks
+namespace ItemSystem
 {
     public class ItemPool : MonoBehaviour
     {

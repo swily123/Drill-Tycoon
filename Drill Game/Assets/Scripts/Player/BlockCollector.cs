@@ -1,6 +1,6 @@
 ﻿using InventorySystem;
 using UnityEngine;
-using Blocks;
+using ItemSystem;
 
 namespace Player
 {
@@ -20,13 +20,12 @@ namespace Player
 
             if (other.transform.TryGetComponent(out Item item))
             {
-                if (item.IsCollected || _inventory.CanAddItem == false || item.CanBeCollected == false)
+                if (_inventory.CanAddItem == false || item.CollectionState.CanBeCollected == false)
                 {
                     return;
                 }
                 
-                Vector3 itemPosition = _inventoryView.GetNextLocalPosition(_inventory.CountItems);
-                item.Collect(_slot, itemPosition);
+                item.Collect(_slot, _inventoryView.GetNextLocalPosition(_inventory.CountItems));
                 _inventory.AddItem(item);
             }
         }
