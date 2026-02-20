@@ -8,14 +8,14 @@ namespace Player
         [SerializeField] private InputReader _inputReader;
         [SerializeField] private PlayerMovement _playerMovement;
         [SerializeField] private PlayerRotation _playerRotation;
-        [SerializeField] private PlayerGravity _playerGravity;
+        [SerializeField] private PlayerPhysics _playerPhysics;
         
         private Rigidbody _rigidbody;
 
         private void Awake()
         {
             _rigidbody = GetComponent<Rigidbody>();
-            _playerGravity.Initialize(_rigidbody);
+            _playerPhysics.Initialize(_rigidbody);
             _playerMovement.Initialize(_rigidbody);
         }
 

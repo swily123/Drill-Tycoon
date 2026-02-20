@@ -21,6 +21,10 @@ namespace InventorySystem
         private void Awake()
         {
             StartValue = _maxBlocksCount;
+        }
+
+        private void Start()
+        {
             OnMaxCountChanged?.Invoke(_maxBlocksCount);
             OnCountChanged?.Invoke(_items.Count);
         }

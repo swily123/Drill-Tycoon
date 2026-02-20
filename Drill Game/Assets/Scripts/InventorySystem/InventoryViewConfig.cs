@@ -2,7 +2,7 @@
 
 namespace InventorySystem
 {
-    [CreateAssetMenu(fileName = "InventoryConfig", menuName = "Inventory/Config")]
+    [CreateAssetMenu(fileName = "InventoryConfig", menuName = "Configs/InventoryConfig")]
     public class InventoryViewConfig : ScriptableObject
     {
         [SerializeField] private int _maxBlocks;

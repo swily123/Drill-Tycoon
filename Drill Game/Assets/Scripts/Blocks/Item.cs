@@ -6,6 +6,7 @@ using UnityEngine;
 namespace Blocks
 {
     [RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(Renderer))]
     public class Item : MonoBehaviour
     {
         [SerializeField] private float _cost = 1;
@@ -27,12 +28,14 @@ namespace Blocks
         
         private Transform _transform;
         private Rigidbody _rigidbody;
+        private Renderer _renderer;
         private Coroutine _immuneCoroutine;
         
         private void Awake()
         {
             _transform = transform;
             _rigidbody = GetComponent<Rigidbody>();
+            _renderer = GetComponent<Renderer>();
             SetNonCollectible();
         }
 
@@ -50,12 +53,7 @@ namespace Blocks
             Vector3 startLocalPos = parent.InverseTransformPoint(startWorldPos);
             Vector3 peakLocalPos = (startLocalPos + localTargetPosition) / Half + Vector3.up * PeakAmplitude;
 
-            Vector3[] path = new Vector3[] 
-            { 
-                startLocalPos,
-                peakLocalPos,
-                localTargetPosition
-            };
+            Vector3[] path = { startLocalPos, peakLocalPos, localTargetPosition };
             
             _rigidbody.mass = _collectibleMass;
             _transform.localRotation = Quaternion.identity;
@@ -86,6 +84,14 @@ namespace Blocks
             _transform.rotation = parent.transform.rotation;
         }
 
+        public void SetMaterial(Material material)
+        {
+            if (material == null)
+                return;
+            
+            _renderer.material = material;
+        }
+        
         private void SetNonCollectible()
         {
             _rigidbody.mass = _nonCollectibleMass;

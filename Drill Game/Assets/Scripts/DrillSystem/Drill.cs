@@ -1,5 +1,6 @@
 ﻿using System;
 using Blocks;
+using Player;
 using UnityEngine;
 using Upgrades;
 
@@ -7,8 +8,11 @@ namespace DrillSystem
 {
     public class Drill : LevelableEntity
     {
+        [SerializeField] private PlayerPhysics _player;
         [SerializeField] private float _speed;
-
+        
+        public float CurrentSpeed => _speed;
+        
         private void Awake()
         {
             StartValue = _speed;
@@ -16,12 +20,12 @@ namespace DrillSystem
 
         public void OnContact(Block block)
         {
-            block.TakeDamage(_speed);
-
-            if (block.IsDieOnDamage(_speed) == false) //TODO AddForce, откинуть назад если не смог сломать
+            if (block.IsDieOnDamage(_speed) == false)
             {
-                Debug.Log("Block Hit");
+                //_player.ForceBack();
             }
+            
+            block.TakeDamage(_speed);
         }
 
         public override void Upgrade(float speed)

@@ -10,16 +10,17 @@ namespace Player
         [SerializeField] private float _speedMultiplierFactor = 10f;
         [SerializeField] private float _acceleration = 5f;
         [SerializeField] private float _deceleration = 8f;
-        
-        public event Action<float> Upgraded;
+
         public event Action Moving;
         public float CurrentSpeed => _speed;
+        public bool IsSlowDownModeActive;
 
         private const float DecelerationDegree = 2;
         private const float SpeedDivider = 0.1f;
         
-        private Rigidbody _rigidbody;
         private Vector3 _velocitySmoothing;
+        private Rigidbody _rigidbody;
+        private float _originalSpeed;
 
         private void Awake()
         {
@@ -60,10 +61,29 @@ namespace Player
         {
             if (speed <= 0)
                 throw new ArgumentException("Speed cannot be less or equal to zero.");
+
+            if (IsSlowDownModeActive)
+                _originalSpeed = speed;
+            else
+                _speed = speed;
             
-            _speed = speed;
             base.Upgrade(speed);
-            Upgraded?.Invoke(speed);
+        }
+
+        public void SlowDown(float speedDeceleration)
+        {
+            if (speedDeceleration <= 0)
+                throw new ArgumentException("Speed Deceleration cannot be less or equal to zero.");
+            
+            IsSlowDownModeActive = true;
+            _originalSpeed = _speed;
+            _speed /= speedDeceleration;
+        }
+        
+        public void RestoreSpeed()
+        {
+            IsSlowDownModeActive = false;
+            _speed = _originalSpeed;
         }
     }
 }

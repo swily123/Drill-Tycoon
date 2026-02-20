@@ -2,7 +2,7 @@
 
 namespace Player
 {
-    public class PlayerGravity : MonoBehaviour
+    public class PlayerPhysics : MonoBehaviour
     {
         [SerializeField] private float _gravityScaler = 100f;
         

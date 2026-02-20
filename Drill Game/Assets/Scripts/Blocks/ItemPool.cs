@@ -45,9 +45,9 @@ namespace Blocks
             _pool.Release(item);
         }
 
-        public void GetObject()
+        public Item GetObject()
         {
-            _pool.Get();
+            return _pool.Get();
         }
         
         private Item Spawn()
