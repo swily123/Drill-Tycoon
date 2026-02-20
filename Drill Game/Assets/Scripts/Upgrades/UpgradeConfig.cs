@@ -7,7 +7,7 @@ namespace Upgrades
     [CreateAssetMenu(fileName = "UpgradesConfig", menuName = "Configs/Config Upgrades")]
     public class UpgradeConfig : ScriptableObject
     {
-        [FormerlySerializedAs("Levels")] [SerializeField] private LevelData[] _levels;
+        [SerializeField] private LevelData[] _levels;
         
         [Serializable]
         public class LevelData

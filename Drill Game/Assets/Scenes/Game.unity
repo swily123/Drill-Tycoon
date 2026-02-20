@@ -11091,8 +11091,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gravityScaler: 100
-  _pushBackForce: 60
-  _pushBackCoolDown: 0.5
 --- !u!114 &1216559847
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14879,7 +14877,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _blocksCounterView: {fileID: 168233417}
-  _maxBlocksCount: 264
+  _maxBlocksCount: 54
 --- !u!1 &1575339821
 GameObject:
   m_ObjectHideFlags: 0

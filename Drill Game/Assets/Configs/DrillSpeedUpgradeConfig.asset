@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70e51abb7f0a40a39d7004f04634ca41, type: 3}
   m_Name: DrillSpeedUpgradeConfig
   m_EditorClassIdentifier: 
-  Levels:
+  _levels:
   - Level: 2
     Cost: 100
     Value: 2
