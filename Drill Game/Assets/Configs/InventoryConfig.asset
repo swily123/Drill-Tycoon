@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2506b0d63e21480a9ddeff60ed51adee, type: 3}
   m_Name: InventoryConfig
   m_EditorClassIdentifier: 
-  _maxBlocks: 127
+  _maxBlocks: 255

@@ -74,6 +74,7 @@ namespace ItemSystem
                 return;
             
             SetNonCollectible();
+            _itemPhysics.Freeze(false);
             _itemPhysics.ApplySpawnForce(parent.forward);
             _transform.localScale = _normalScale;
             _transform.position = parent.transform.position;
