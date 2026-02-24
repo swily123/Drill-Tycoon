@@ -434,13 +434,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6723455}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.9563048, z: -0.29237175, w: 0}
+  m_LocalRotation: {x: 0, y: 0.953717, z: -0.30070576, w: 0}
   m_LocalPosition: {x: 3.3, y: 32.86, z: 146.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 34, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 35, y: 180, z: 0}
 --- !u!114 &6723460
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21224,7 +21224,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 867320440}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.9563048, z: -0.29237175, w: 0}
+  m_LocalRotation: {x: 0, y: 0.953717, z: -0.30070576, w: 0}
   m_LocalPosition: {x: 3.3, y: 32.86, z: 146.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -31089,9 +31089,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _button: {fileID: 830723421}
   _itemSellPoint: {fileID: 87683303}
-  _cooldownMax: 0.15
-  _cooldownMin: 0.01
-  _cooldownStep: 0.005
+  _cooldown: 0.1
+  _maxBlocksPerOrder: 10
 --- !u!1 &1254586668
 GameObject:
   m_ObjectHideFlags: 0
@@ -35670,7 +35669,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _moneyText: {fileID: 1476401653}
   _coinSymbol: <sprite=0>
-  _animationDuration: 0.5
+  _animationDuration: 0.2
+  _minValueToActivateAnimation: 2
 --- !u!1 &1480572931
 GameObject:
   m_ObjectHideFlags: 0

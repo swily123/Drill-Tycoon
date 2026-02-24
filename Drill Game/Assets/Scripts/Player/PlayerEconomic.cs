@@ -8,6 +8,7 @@ namespace Player
         public static PlayerEconomic Instance { get; private set; }
         
         public event Action OnMoneyChanged;
+        public event Action<float> OnMoneyChangedValue;
         public float Money => _money;
         
         [SerializeField] private Shop _shop;
@@ -53,7 +54,9 @@ namespace Player
                 return;
             }
             
-            _money -= cost;
+            float newMoney = _money - cost;
+            OnMoneyChangedValue?.Invoke(newMoney);
+            _money = newMoney;
             OnMoneyChanged?.Invoke();
         }
         
@@ -64,7 +67,9 @@ namespace Player
                 return;
             }
             
-            _money += itemCost;
+            float newMoney = _money + itemCost;
+            OnMoneyChangedValue?.Invoke(newMoney);
+            _money = newMoney;
             OnMoneyChanged?.Invoke();
         }
 

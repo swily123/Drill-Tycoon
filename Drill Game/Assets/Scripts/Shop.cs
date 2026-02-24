@@ -1,5 +1,4 @@
 ﻿using System;
-using Blocks;
 using ItemSystem;
 using Planes;
 using Player;
@@ -9,14 +8,12 @@ public class Shop : MonoBehaviour
 {
     [SerializeField] private PlaneButton _button;
     [SerializeField] private Transform _itemSellPoint;
-    [SerializeField] private float _cooldownMax = 0.2f;
-    [SerializeField] private float _cooldownMin = 0.01f;
-    [SerializeField] private float _cooldownStep = 0.0001f;
+    [SerializeField] private float _cooldown = 0.1f;
+    [SerializeField] private int _maxBlocksPerOrder = 10;
     
     public event Action<float> ItemPurchased;
     
     private float _cooldownTimer;
-    private float _cooldownNextValue;
     
     private void OnEnable()
     {
@@ -39,19 +36,30 @@ public class Shop : MonoBehaviour
             return;
         }
         
-        if (buttonPresser.IsInventoryNotEmpty())
+        int inventoryCapacity = buttonPresser.GetInventoryCapacityCount();
+        
+        if (inventoryCapacity > 0)
         {
-            Item item = buttonPresser.GetNextItem();
-            item.Collect(_itemSellPoint, Vector3.zero, onComplete: () => ItemPool.Instance.ReleaseObject(item));
-            ItemPurchased?.Invoke(item.Cost);
-            _cooldownNextValue = Mathf.MoveTowards(_cooldownNextValue, _cooldownMin, _cooldownStep);
-            _cooldownTimer = _cooldownNextValue;
+            if (inventoryCapacity >= _maxBlocksPerOrder)
+            {
+                inventoryCapacity = _maxBlocksPerOrder;
+            }
+
+            float orderCost = 0;
+            
+            foreach (Item item in buttonPresser.GetItems(inventoryCapacity))
+            {
+                item.Collect(_itemSellPoint, Vector3.zero, onComplete: () => ItemPool.Instance.ReleaseObject(item));
+                orderCost += item.Cost;
+                _cooldownTimer = _cooldown;
+            }
+            
+            ItemPurchased?.Invoke(orderCost);
         }
     }
 
     private void OnReleaseButton()
     {
-        _cooldownTimer = _cooldownMax;
-        _cooldownNextValue = _cooldownMax;
+        _cooldownTimer = _cooldown;
     }
 }

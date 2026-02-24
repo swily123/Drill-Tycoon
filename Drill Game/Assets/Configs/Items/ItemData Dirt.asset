@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: ItemData Dirt
   m_EditorClassIdentifier: 
   _material: {fileID: 2100000, guid: e1f9ae36b47c66d4484c0aead1a91d0b, type: 2}
-  _cost: 200
+  _cost: 2
