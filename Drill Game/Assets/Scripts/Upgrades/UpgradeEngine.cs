@@ -6,6 +6,7 @@ namespace Upgrades
 {
     public class UpgradeEngine : MonoBehaviour
     {
+        [SerializeField] private PlayerEconomic _playerEconomic;
         [SerializeField] private EntityUpgrader _entityUpgrader;
 
         public bool MaxLevelReached { get; private set; }
@@ -24,7 +25,7 @@ namespace Upgrades
 
         public bool CanBuyUpgrade()
         {
-            return PlayerEconomic.Instance.IsEnoughMoney(_entityUpgrader.GetUpgradeCost());
+            return _playerEconomic.IsEnoughMoney(_entityUpgrader.GetUpgradeCost());
         }
 
         public bool TryBuyUpgrade()
@@ -33,7 +34,7 @@ namespace Upgrades
             
             if (canBuy)
             {
-                PlayerEconomic.Instance.SpendMoney(_entityUpgrader.GetUpgradeCost());
+                _playerEconomic.SpendMoney(_entityUpgrader.GetUpgradeCost());
                 _entityUpgrader.ApplyUpgrade();
             }
 

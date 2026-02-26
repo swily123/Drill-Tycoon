@@ -7,6 +7,7 @@ namespace Blocks
     [RequireComponent(typeof(BoxCollider))]
     public class Block : MonoBehaviour
     {
+        [SerializeField] private ItemPool _pool;
         [SerializeField] private float _health;
         [SerializeField] private ItemData _itemData;
         
@@ -77,9 +78,8 @@ namespace Blocks
         
         private void Die()
         {
-            Item item = ItemPool.Instance.GetObject();
+            Item item = _pool.GetObject();
             item.SetData(_itemData);
-            BlocksCounter.Instance.OnBlockDie();
             Destroy(gameObject);
         }
 

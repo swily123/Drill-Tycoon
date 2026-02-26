@@ -7,6 +7,7 @@ namespace Player
 {
     public class PlayerEconomicView : MonoBehaviour
     {
+        [SerializeField] private PlayerEconomic _playerEconomic;
         [SerializeField] private TextMeshProUGUI _moneyText;
         [SerializeField] private string _coinSymbol;
         [SerializeField] private float _animationDuration;
@@ -14,19 +15,16 @@ namespace Player
         
         private void OnEnable()
         {
-            if (PlayerEconomic.Instance != null)
-                PlayerEconomic.Instance.OnMoneyChangedValue += UpdateView;
+            _playerEconomic.OnMoneyChangedValue += UpdateView;
         }
 
         private void OnDisable()
         {
-            if (PlayerEconomic.Instance != null)
-                PlayerEconomic.Instance.OnMoneyChangedValue -= UpdateView;
+            _playerEconomic.OnMoneyChangedValue -= UpdateView;
         }
 
-        private void UpdateView(float newValue)
+        private void UpdateView(float oldValue, float newValue)
         {
-            float oldValue = PlayerEconomic.Instance.Money;
             _moneyText.DOKill();
             
             if (newValue - oldValue < _minValueToActivateAnimation)

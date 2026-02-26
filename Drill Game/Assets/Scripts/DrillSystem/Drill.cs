@@ -8,6 +8,7 @@ namespace DrillSystem
 {
     public class Drill : LevelableEntity
     {
+        [SerializeField] private BlocksCounter _blocksCounter;
         [SerializeField] private PlayerPhysics _player;
         [SerializeField] private float _speed;
         
@@ -22,7 +23,7 @@ namespace DrillSystem
         {
             if (block.IsDieOnDamage(_speed) == false)
             {
-                //_player.ForceBack();
+                _blocksCounter.OnBlockDie();
             }
             
             block.TakeDamage(_speed);

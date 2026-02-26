@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class Shop : MonoBehaviour
 {
+    [SerializeField] private ItemPool _pool;
     [SerializeField] private PlaneButton _button;
     [SerializeField] private Transform _itemSellPoint;
     [SerializeField] private float _cooldown = 0.1f;
@@ -49,7 +50,7 @@ public class Shop : MonoBehaviour
             
             foreach (Item item in buttonPresser.GetItems(inventoryCapacity))
             {
-                item.Collect(_itemSellPoint, Vector3.zero, onComplete: () => ItemPool.Instance.ReleaseObject(item));
+                item.Collect(_itemSellPoint, Vector3.zero, onComplete: () => _pool.ReleaseObject(item));
                 orderCost += item.Cost;
                 _cooldownTimer = _cooldown;
             }

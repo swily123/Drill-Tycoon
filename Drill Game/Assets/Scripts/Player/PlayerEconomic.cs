@@ -5,28 +5,12 @@ namespace Player
 {
     public class PlayerEconomic : MonoBehaviour
     {
-        public static PlayerEconomic Instance { get; private set; }
-        
-        public event Action OnMoneyChanged;
-        public event Action<float> OnMoneyChangedValue;
-        public float Money => _money;
-        
         [SerializeField] private Shop _shop;
         
-        private float _money;
+        public event Action OnMoneyChanged;
+        public event Action<float, float> OnMoneyChangedValue;
         
-        private void Awake()
-        {
-            if (Instance == null)
-            {
-                Instance = this;
-                // DontDestroyOnLoad(gameObject);
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
-        }
+        private float _money;
 
         private void OnEnable()
         {
@@ -55,7 +39,7 @@ namespace Player
             }
             
             float newMoney = _money - cost;
-            OnMoneyChangedValue?.Invoke(newMoney);
+            OnMoneyChangedValue?.Invoke(_money, newMoney);
             _money = newMoney;
             OnMoneyChanged?.Invoke();
         }
@@ -68,7 +52,7 @@ namespace Player
             }
             
             float newMoney = _money + itemCost;
-            OnMoneyChangedValue?.Invoke(newMoney);
+            OnMoneyChangedValue?.Invoke(_money, newMoney);
             _money = newMoney;
             OnMoneyChanged?.Invoke();
         }

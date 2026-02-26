@@ -6,29 +6,26 @@ namespace Upgrades
 {
     public class UpgradeButton : MonoBehaviour
     {
+        [SerializeField] private PlayerEconomic _playerEconomic;
         [SerializeField] private UpgradeEngine _upgradeEngine;
         [SerializeField] private Button _upgradeButton;
         [SerializeField] private UpgradeUI _upgradeUI;
-        
+
         private void OnEnable()
         {
             _upgradeEngine.DisablingButton += Disable;
             _upgradeButton.onClick.AddListener(Upgrade);
 
-            if (PlayerEconomic.Instance != null)
-            {
-                SetRepresentation();
-                PlayerEconomic.Instance.OnMoneyChanged += SetRepresentation;
-            }
+            SetRepresentation();
+            _playerEconomic.OnMoneyChanged += SetRepresentation;
         }
 
         private void OnDisable()
         {
             _upgradeEngine.DisablingButton -= Disable;
             _upgradeButton.onClick.RemoveListener(Upgrade);
-            
-            if (PlayerEconomic.Instance != null)
-                PlayerEconomic.Instance.OnMoneyChanged -= SetRepresentation;
+
+            _playerEconomic.OnMoneyChanged -= SetRepresentation;
         }
 
         private void Upgrade()
@@ -39,7 +36,7 @@ namespace Upgrades
                 {
                     _upgradeUI.Colorize(true);
                     int level = _upgradeEngine.GetEntityLevel();
-                    
+
                     _upgradeUI.SetLevelText(level);
                     _upgradeUI.SetDescriptionText(_upgradeEngine.GetUpgradeValue(level));
                     _upgradeUI.SetMaxLevel();
@@ -56,10 +53,10 @@ namespace Upgrades
             bool canBuy = _upgradeEngine.CanBuyUpgrade();
             _upgradeButton.interactable = canBuy;
             _upgradeUI.Colorize(canBuy);
-            
+
             int level = _upgradeEngine.GetEntityLevel();
             _upgradeEngine.GetUpgradeValues(level, out float firstValue, out float secondValue);
-            
+
             _upgradeUI.SetLevelText(level);
             _upgradeUI.SetDescriptionText(firstValue, secondValue);
             _upgradeUI.SetButtonText(_upgradeEngine.GetCostUpgrade());

@@ -11,23 +11,8 @@ namespace ItemSystem
         [SerializeField] private int _defaultCapacity = 20;
         [SerializeField] private int _poolMaxSize = 5000;
         
-        public static ItemPool Instance { get; private set; }
-        
         private ObjectPool<Item> _pool;
         
-        private void Awake()
-        {
-            if (Instance == null)
-            {
-                Instance = this;
-                // DontDestroyOnLoad(gameObject);
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
-        }
-
         private void Start()
         {
             _pool = new ObjectPool<Item>(
