@@ -14,6 +14,7 @@ public class Shop : MonoBehaviour
     
     public event Action<float> ItemPurchased;
     
+    private float _costMultiplier = 1;
     private float _cooldownTimer;
     
     private void OnEnable()
@@ -28,7 +29,15 @@ public class Shop : MonoBehaviour
         _button.Activating -= OnActive;
         _button.Released -= OnReleaseButton;
     }
- 
+
+    public void SetCostMultiplier(float multiplier)
+    {
+        if (multiplier < 0)
+            throw new ArgumentException("multiplier must be greater than or equal to 0");
+        
+        _costMultiplier = multiplier;
+    }
+    
     private void OnActive(ButtonPresser buttonPresser)
     {
         if (_cooldownTimer > 0)
@@ -51,7 +60,7 @@ public class Shop : MonoBehaviour
             foreach (Item item in buttonPresser.GetItems(inventoryCapacity))
             {
                 item.Collect(_itemSellPoint, Vector3.zero, onComplete: () => _pool.ReleaseObject(item));
-                orderCost += item.Cost;
+                orderCost += item.Cost * _costMultiplier;
                 _cooldownTimer = _cooldown;
             }
             
